@@ -5,12 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corona Ampel Berlin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 </head>
 
 <body>
-    <canvas id="chart"></canvas>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h2>Reproduktionsrate R</h2>
+                <div class="chart-container">
+                    <canvas id="chart-reproduction" class="chart"></canvas>
+                </div>
+            </div>
+            <div class="col-sm">
+                <h2>Neuinfektionen</h2>
+                <div class="chart-container">
+                    <canvas id="chart-infections" class="chart"></canvas>
+                </div>
+            </div>
+            <div class="col-sm">
+                <h2>Krankenhausbetten</h2>
+                <div class="chart-container">
+                    <canvas id="chart-icu" class="chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 

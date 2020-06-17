@@ -1,9 +1,7 @@
 const CORONA_TRAFFIC_URL = 'https://knudmoeller.github.io/berlin_corona_cases/data/target/berlin_corona_traffic_light.json';
 
-
-function render(datasets) {
-    console.log(moment());
-    var ctx = document.getElementById('chart').getContext('2d');
+function render(canvasId, datasets) {
+    var ctx = document.getElementById(canvasId).getContext('2d');
     var chart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -11,31 +9,16 @@ function render(datasets) {
         },
         options: {
             responsive: true,
-            title: {
-                display: true,
-                text: 'Chart.js Time Point Data'
+            legend: {
+                display: false
             },
             scales: {
                 xAxes: [{
                     type: 'time',
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Date'
-                    },
-                    ticks: {
-                        major: {
-                            fontStyle: 'bold',
-                            fontColor: '#FF0000'
-                        }
-                    }
+                    display: false
                 }],
                 yAxes: [{
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'value'
-                    }
+                    display: false
                 }]
             }
         }
@@ -46,28 +29,19 @@ async function getData() {
     return (await fetch(CORONA_TRAFFIC_URL)).json();
 }
 
-function getDataset(data, label, key) {
-    data.reverse();
+function getDataset(data, key) {
     return {
-        label,
         data: data.map(e => ({ x: e.pr_date, y: e.indicators[key].value })),
         pointBackgroundColor: data.map(e => e.indicators[key].color),
-        // fill: 'none'
-        //yAxisID: key
     }
 }
 
-function transform(data) {
-
-    const datasets = [
-        getDataset(data, 'Reproduktionszahl R', 'basic_reproduction_number'),
-        getDataset(data, 'Neue Infektionen', 'incidence_new_infections'),
-        getDataset(data, 'Intensivbetten', 'icu_occupancy_rate')
-    ];
-
-    console.log(datasets);
-    return datasets;
+async function renderDocument() {
+    const rawData = await getData();
+    rawData.reverse();
+    render('chart-reproduction', [getDataset(rawData, 'basic_reproduction_number')]);
+    render('chart-infections', [getDataset(rawData, 'incidence_new_infections')]);
+    render('chart-icu', [getDataset(rawData, 'icu_occupancy_rate')]);
 }
 
-getData()
-    .then(data => render(transform(data)));
+renderDocument();

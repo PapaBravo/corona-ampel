@@ -46,16 +46,34 @@
                 <div class="chart-container">
                     <canvas id="chart-reproduction" class="chart"></canvas>
                 </div>
+                <p class="chart-desc">
+                    <b>Ampelfarben beim R-Wert:</b><br/>
+                    R-Wert < 1,1 = Grün <br/>
+                    R-Wert mindestens 3 Mal <i>in Folge</i> ≥ 1,1 = Gelb <br/>
+                    R-Wert mindestens 3 Mal <i>in Folge</i> ≥ 1,2 = Rot
+                </p>
             </div>
             <div class="col-md">
                 <div class="chart-container">
                     <canvas id="chart-infections" class="chart"></canvas>
                 </div>
+                <p class="chart-desc">
+                    <b>Ampelfarben bei Neuinfektionen:</b><br/>
+                    Zahl < 20 je 100.000 Einwohner*innen = Grün<br/>
+                    Zahl ≥ 20 je 100.000 Einwohner*innen = Gelb<br/>
+                    Zahl ≥ 30 je 100.000 Einwohner*innen = Rot<br/>
+                </p>
             </div>
             <div class="col-md">
                 <div class="chart-container">
                     <canvas id="chart-icu" class="chart"></canvas>
                 </div>
+                <p class="chart-desc">
+                    <b>Ampelfarben bei Auslastung der Intensivstationbetten:</b><br/>
+                    Anteil < 15 % = Grün<br/>
+                    Anteil ≥ 15 % = Gelb<br/>
+                    Anteil ≥ 25 % = Rot<br/>
+                </p>
             </div>
         </div>
     </div>

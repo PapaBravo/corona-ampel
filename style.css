@@ -1,3 +1,8 @@
 div.chart-container {
     position: relative;
 }
+
+p.chart-desc {
+    font-size: 0.8em;
+    margin-top: 0.5em;
+}

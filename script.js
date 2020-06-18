@@ -23,6 +23,7 @@ const INDICATORS = [
         canvas: 'chart-infections',
         thresholds: [20, 30],
         title: 'Neuinfektionen',
+        subtitle: 'je 100.000 Einwohner*innen',
         stepSize: 5
     },
     {
@@ -30,6 +31,7 @@ const INDICATORS = [
         canvas: 'chart-icu',
         thresholds: [15, 25],
         title: 'Krankenhausbetten',
+        subtitle: 'Auslastung in %',
         stepSize: 5
     }
 ]
@@ -50,7 +52,8 @@ function render(key, rawData) {
             },
             title: {
                 text: config.title,
-                display: true
+                display: true,
+                padding: 18
             },
             scales: {
                 xAxes: [{
@@ -77,7 +80,6 @@ function render(key, rawData) {
                     type: 'box',
                     xScaleID: 'x-axis-0',
                     yScaleID: 'y-axis-0',
-                    yMin: 0,
                     yMax: config.thresholds[0],
                     backgroundColor: getRGBA(COLORS.green, 0.2),
                     borderWidth: 0,
@@ -97,6 +99,12 @@ function render(key, rawData) {
                     backgroundColor: getRGBA(COLORS.red, 0.2),
                     borderWidth: 0,
                 }]
+            },
+            plugins: {
+                chartJsPluginSubtitle: {
+                    display: !!config.subtitle,
+                    text: config.subtitle
+                }
             }
         }
     });
@@ -106,9 +114,16 @@ async function getData() {
     return (await fetch(CORONA_TRAFFIC_URL)).json();
 }
 
+function rawToChartJSElement(rawElement, key) {
+    return {
+        x: rawElement.pr_date,
+        y: rawElement.indicators[key].value
+    };
+}
+
 function getDataset(data, key) {
     return {
-        data: data.map(e => ({ x: e.pr_date, y: e.indicators[key].value })),
+        data: data.map(e => rawToChartJSElement(e, key)),
         pointBackgroundColor: data.map(e => e.indicators[key].color),
     }
 }

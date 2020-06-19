@@ -38,12 +38,13 @@ const INDICATORS = [
 
 function render(key, rawData) {
     const config = INDICATORS.find(e => e.key === key);
+    const dataset = getDataset(rawData, key);
 
     var ctx = document.getElementById(config.canvas).getContext('2d');
     var chart = new Chart(ctx, {
         type: 'line',
         data: {
-            datasets: [getDataset(rawData, key)]
+            datasets: [dataset]
         },
         options: {
             responsive: true,
@@ -80,6 +81,7 @@ function render(key, rawData) {
                     type: 'box',
                     xScaleID: 'x-axis-0',
                     yScaleID: 'y-axis-0',
+                    xMin: dataset.data[0].x,
                     yMax: config.thresholds[0],
                     backgroundColor: getRGBA(COLORS.green, 0.2),
                     borderWidth: 0,
@@ -87,6 +89,7 @@ function render(key, rawData) {
                     type: 'box',
                     xScaleID: 'x-axis-0',
                     yScaleID: 'y-axis-0',
+                    xMin: dataset.data[0].x,
                     yMin: config.thresholds[0],
                     yMax: config.thresholds[1],
                     backgroundColor: getRGBA(COLORS.yellow, 0.2),
@@ -95,6 +98,7 @@ function render(key, rawData) {
                     type: 'box',
                     xScaleID: 'x-axis-0',
                     yScaleID: 'y-axis-0',
+                    xMin: dataset.data[0].x,
                     yMin: config.thresholds[1],
                     backgroundColor: getRGBA(COLORS.red, 0.2),
                     borderWidth: 0,
@@ -116,7 +120,7 @@ async function getData() {
 
 function rawToChartJSElement(rawElement, key) {
     return {
-        x: rawElement.pr_date,
+        x: moment(rawElement.pr_date),
         y: rawElement.indicators[key].value
     };
 }

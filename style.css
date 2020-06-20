@@ -1,3 +1,14 @@
 div.chart-container {
     position: relative;
 }
+
+div.chart-desc {
+    font-size: 0.8em;
+    margin-top: 0.5em;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}

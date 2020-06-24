@@ -62,7 +62,7 @@ function render(key, rawData) {
                     type: 'time',
                     display: true,
                     time: {
-                        stepSize: 5
+                        stepSize: 7
                     }
                 }],
                 yAxes: [{

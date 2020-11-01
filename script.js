@@ -31,7 +31,7 @@ const INDICATORS = [
         canvas: 'chart-icu',
         thresholds: [15, 25],
         title: 'Krankenhausbetten',
-        subtitle: 'Auslastung in %',
+        subtitle: 'Anteil Covid Patienten in %',
         stepSize: 5
     }
 ]
